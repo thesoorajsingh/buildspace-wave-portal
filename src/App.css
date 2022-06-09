@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500&display=swap');
+
+body {
+  color: #;
+  display: flex;
+  font-family: "Baloo Da 2", sans-serif;
+  cursor: url("http://www.rw-designer.com/cursor-extern.php?id=177491");
+  justify-content: center;
+  align-items: center;
+  background-color:#99b3ff;
+  background-size: 100%;
+  background-repeat: no-repeat;
+background-image: radial-gradient(at 22% 88%, hsla(298,75%,67%,1) 0px, transparent 50%),
+radial-gradient(at 45% 69%, hsla(214,68%,69%,1) 0px, transparent 50%),
+radial-gradient(at 59% 93%, hsla(148,80%,72%,1) 0px, transparent 50%),
+radial-gradient(at 51% 40%, hsla(261,60%,76%,1) 0px, transparent 50%),
+radial-gradient(at 68% 22%, hsla(0,63%,70%,1) 0px, transparent 50%),
+radial-gradient(at 47% 38%, hsla(46,83%,71%,1) 0px, transparent 50%),
+radial-gradient(at 44% 3%, hsla(269,66%,74%,1) 0px, transparent 50%);
+}
+
+
+main {
+  text-align: center;
+  display: flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items: center;
+  vertical-align: center;
+  height: 100vh;
+  
+}
+
+h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 4rem;
+  color: black;
+}
+
+p {
+  font-size: 1.5rem;
+  margin-top: -1.5rem;
+}
+
+.wave-button {
+  background-color: beige;
+  border: 4px solid black;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  font-family: "Baloo Da 2", sans-serif;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.wave-button:hover {
+  transform: translate(-8px, -8px);
+  box-shadow: 8px 8px 0 black;
+}
+
+.wave-button:active {
+  transform: translate(4px, 4px);
+  box-shadow: none; 
+}
