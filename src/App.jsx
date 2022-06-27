@@ -3,12 +3,16 @@ import { useEffect, useState } from 'react';
 import { ethers } from "ethers";
 import './App.css';
 import abi from "./utils/WavePortal.json";
+import Card from "./components/Card.jsx"
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState("");
-  const contractAddress = "0x51E39eCd468bE4Ae83295e2894be7380edbbFDDA";
+  const [allWaves, setAllWaves] = useState([]);
+  const contractAddress = "0xF2b346de7f2E4961895AbA9D82fF0A351b7cae4e";
   const contractABI = abi.abi;
   const isMetamask = window.ethereum && ethereum;
+  // const toast = useToast();
+
   const isWalletConnected = async () => {
     try {
       const { ethereum } = window;
@@ -20,7 +24,9 @@ function App() {
       if (accounts.length !== 0) {
         const account = accounts[0];
         console.log("Found an authorized account:", account);
-        setCurrentAccount(account)
+        setCurrentAccount(account);
+        getAllWaves();
+        console.log("Total Waves -> ", allWaves);
       } else {
         console.log("No authorized account found")
       }
@@ -45,6 +51,35 @@ function App() {
     }
   }
 
+  const getAllWaves = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+        const waves = await wavePortalContract.getAllWaves();
+
+        let wavesCleaned = [];
+        waves.forEach(wave => {
+          wavesCleaned.push({
+            address: wave.waver,
+            timestamp: new Date(wave.timestamp * 1000),
+            message: wave.message,
+          });
+        });
+
+        setAllWaves(wavesCleaned);
+      } else {
+        console.log("Ethereum object doesn't exist!");
+      }
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
   const wave = async () => {
     try {
       if (isMetamask) {
@@ -54,12 +89,12 @@ function App() {
         let count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
 
-        const waveTxn = await wavePortalContract.wave();
+        const waveTxn = await wavePortalContract.wave("This is a wave message v1");
         console.log("Mining...");
 
         await waveTxn.wait();
-        console.log("Mined at: ",waveTxn.hash);
-        
+        console.log("Mined at: ", waveTxn.hash);
+
         count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
       } else {
@@ -73,6 +108,7 @@ function App() {
 
   useEffect(() => {
     isWalletConnected();
+    console.log(allWaves)
   }, [])
 
   return (
@@ -85,6 +121,10 @@ function App() {
         )}
         <button className="wave-button" onClick={wave}>👋 Send Me a Wave!</button>
       </>
+      { allWaves.length > 0 ?
+      <Card address="1234" name="Sooraj" time="1:24pm" /> :
+        null
+      }
     </main>
   );
 }
