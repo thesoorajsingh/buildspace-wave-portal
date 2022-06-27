@@ -8,11 +8,15 @@ import Card from "./components/Card.jsx"
 function App() {
   const [currentAccount, setCurrentAccount] = useState("");
   const [allWaves, setAllWaves] = useState([]);
-  const contractAddress = "0xF2b346de7f2E4961895AbA9D82fF0A351b7cae4e";
+  const contractAddress = "0x0bD0025b5d2916081689A85ccC7B783EF6CA648D";
   const contractABI = abi.abi;
   const isMetamask = window.ethereum && ethereum;
-  // const toast = useToast();
+  const [buttonEnabled, setButtonEnabled] = useState(false);
+  const [input, setInput] = useState("")
+  // console.log(/^(spotify:|https:\/\/[a-z]+\.spotify\.com\/)/.test(url)); Spotify Validator
 
+  const [isValidLink, setIsValidLink] = useState(true)
+  
   const isWalletConnected = async () => {
     try {
       const { ethereum } = window;
@@ -108,24 +112,41 @@ function App() {
 
   useEffect(() => {
     isWalletConnected();
-    console.log(allWaves)
-  }, [])
+  }, [currentAccount])
+
+  useEffect(() => {
+    setIsValidLink(/^(spotify:|https:\/\/[a-z]+\.spotify\.com\/)/.test(input));
+    console.log(isValidLink)
+  }, [input])
 
   return (
     <main>
       <h1>Hi There!</h1>
       <p>I'm Sooraj and I solve problems as a hobby!</p>
       <>
-        {!currentAccount && (
+        {!currentAccount ? (
           <button className="wave-button" onClick={connectWallet}>🦊 Connect your wallet!</button>
-        )}
-        <button className="wave-button" onClick={wave}>👋 Send Me a Wave!</button>
+        ) : (
+            <input
+              type="text"
+              value={input || ""}
+              onChange={(e) => { 
+                setInput(e.target.value);
+                console.log(buttonEnabled)
+                this.value=e.target.value;
+                input.length > 0 && isValidLink ? setButtonEnabled(true) : setButtonEnabled(false);
+              }}
+              className={`input-box valid-input`}
+              placeholder="Drop me a link to your playlist!"></input>
+          )}
+        <button className={buttonEnabled ? "wave-button" : "wave-button-disabled"} onClick={wave}>👋 Send Me a Wave!</button>
       </>
-      { allWaves.length > 0 ?
-      <Card address="1234" name="Sooraj" time="1:24pm" /> :
-        null
+      {
+        allWaves.length > 0 ?
+          allWaves.map((wave, index) => { <Card key={index} address={wave.address} message={wave.message} time={wave.time} /> }) :
+          null
       }
-    </main>
+    </main >
   );
 }
 
