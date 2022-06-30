@@ -1,0 +1,31 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 1rem 1rem 0 1rem;
+  color: black;
+  width: 35vw;
+  justify-content: space-between;
+  align-items: space-around;
+  margin: 1rem 0;
+  text-align:center;
+  border: 3px solid #000;
+  border-radius: 2rem;
+  box-shadow: 10px 10px 0 #000;
+}
+
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+}
+
+.value-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1rem 0 1rem;
+  text-align: center;
+}

@@ -1,8 +1,8 @@
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500&display=swap');
 
 body {
-  color: #;
+  color: #fff;
   display: flex;
   font-family: "Baloo Da 2", sans-serif;
   cursor: url("http://www.rw-designer.com/cursor-extern.php?id=177491");
@@ -29,7 +29,6 @@ main {
   align-items: center;
   vertical-align: center;
   height: 100vh;
-  
 }
 
 h1 {
@@ -52,9 +51,6 @@ p {
   font-family: "Baloo Da 2", sans-serif;
   font-size: 1rem;
   margin-bottom: 1rem;
-}
-
-.wave-button:hover {
   transform: translate(-8px, -8px);
   box-shadow: 8px 8px 0 black;
 }
@@ -78,6 +74,31 @@ p {
   pointer-events: none;
 }
 
+.wave-button-loading {
+  background-color: white;
+  border: 4px solid black;
+  padding: 0.75rem 1rem;
+  position: relative;
+  overflow: hidden;
+  font-family: "Baloo Da 2", sans-serif;
+  pointer-events: none;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  cursor: disabled;
+  transition: all 0.2s ease-in-out;
+  animation: pulse 1s linear infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0.75;
+  }
+}
+
+
 .input-box {
   margin: 1rem 0 2rem 0;
   padding: 1rem;
@@ -97,4 +118,18 @@ p {
 
 .input-box:focus {
   background-color: #fff;
+}
+
+.loading-status {
+  color: black;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  background-color: #fff;
+  border: 3px solid #000;
+}
+
+.latest {
+  font-size: 2rem;
+  font-family: "Playfair Display", sans-serif;
+  letter-spacing: 0.5rem;
 }
